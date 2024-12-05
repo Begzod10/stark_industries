@@ -1,20 +1,5 @@
 from django.db import models
-
-class AnalysisType(models.Model):
-    name = models.CharField(max_length=255)
-
-
-class Device(models.Model):
-    name = models.CharField(max_length=255)
-    branch = models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True)
-    ip_address = models.GenericIPAddressField()
-
-
-class Analysis(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=255)
-    price = models.FloatField()
-    type = models.ForeignKey(AnalysisType, on_delete=models.SET_NULL, null=True)
+from analysis.models import Analysis
 
 
 class UserAnalysis(models.Model):

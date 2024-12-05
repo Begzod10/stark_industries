@@ -10,7 +10,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     sex = models.CharField(max_length=255)
-    branch = models.ForeignKey('Branch', on_delete=models.CASCADE)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -21,4 +21,4 @@ class UserRequest(models.Model):
     patient = models.ForeignKey(User, related_name='patient_requests' ,on_delete=models.SET_NULL, null=True)
     from_date = models.DateField()
     to_date = models.DateField()
-    calendar = models.ForeignKey('Calendar', on_delete=models.SET_NULL, null=True)
+    calendar = models.ForeignKey('calendars.Calendar', on_delete=models.SET_NULL, null=True)
