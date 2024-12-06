@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('config.utilis.swagger')),
     path('api/device/', include('device.device.api.urls')),
+    path('api/calendar/', include('calendars.calendar.api.urls')),
 
 ]
