@@ -22,5 +22,6 @@ urlpatterns = [
     path('api/', include('config.utilis.swagger')),
     path('api/device/', include('device.device.api.urls')),
     path('api/calendar/', include('calendars.calendar.api.urls')),
+    path('api/user_job/', include('users.user_job.api.urls')),
 
 ]

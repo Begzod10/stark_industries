@@ -17,6 +17,14 @@ pip freeze > requirements.txt
 ```bash
 pip install -r requirements.txt
  ```
+
+
+## Migrate
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 ## 2) Githubga qo'shish 
 ```bash
 git add .

@@ -17,12 +17,21 @@ pip freeze > requirements.txt
 ```bash
 pip install -r requirements.txt
  ```
-
+## 2) Githubga qo'shish 
+```bash
+git add .
+git status
+```
+Github commit qilish
+```bash
+git commit -m "commit message"
+git push origin shahzodbeeck
+```
 Python'da funksiyalar uchun izoh (docstring) yozish qoidalari kodning tushunarli va qulay bo‘lishini taʼminlaydi. Quyida
 to‘liq docstring yozish tartibi keltirilgan.
 
 ---
-2). Docstring yozish qoidalari
+3). Docstring yozish qoidalari
 
 ## 1. Docstring nima?
 
