@@ -21,8 +21,6 @@ class Branch(models.Model):
 
 @receiver(post_migrate)
 def create_default_branch(sender, **kwargs):
-    if Location.objects.count() == 0:
-        Location.objects.create(name="Default Location")
     if Branch.objects.count() == 0:
         location = Location.objects.first()
         if location:

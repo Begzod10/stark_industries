@@ -10,5 +10,5 @@ class AnalysisType(models.Model):
 class Analysis(models.Model):
     device = models.ForeignKey(Device, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=30, decimal_places=2)
+    price = models.DecimalField()
     type = models.ForeignKey(AnalysisType, on_delete=models.SET_NULL, null=True)
