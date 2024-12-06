@@ -12,6 +12,12 @@ Shu loyihada ishlashda quyidagi qoidalarni doimo yodda tuting va ularga amal qil
 pip freeze > requirements.txt
 ```
 
+- Kutub xona o‘rnatishi uchun `pip install -r requirements.txt` buyruqini ishlatishingiz mumkin.
+
+```bash
+pip install -r requirements.txt
+ ```
+
 Python'da funksiyalar uchun izoh (docstring) yozish qoidalari kodning tushunarli va qulay bo‘lishini taʼminlaydi. Quyida
 to‘liq docstring yozish tartibi keltirilgan.
 
