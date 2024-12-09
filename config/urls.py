@@ -23,5 +23,7 @@ urlpatterns = [
     path('api/device/', include('device.device.api.urls')),
     path('api/calendar/', include('calendars.calendar.api.urls')),
     path('api/user_job/', include('users.user_job.api.urls')),
+    path('api/branch_info/', include('branch.urls')),
+    path('api/job_info/', include('job.urls')),
 
 ]
