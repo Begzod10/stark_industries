@@ -17,8 +17,8 @@ class User(AbstractUser):
 
 
 class UserRequest(models.Model):
-    doctor = models.ForeignKey(User,  related_name='doctor_requests', on_delete=models.SET_NULL, null=True)
-    patient = models.ForeignKey(User, related_name='patient_requests' ,on_delete=models.SET_NULL, null=True)
+    doctor = models.ForeignKey(User, related_name='doctor_requests', on_delete=models.SET_NULL, null=True)
+    patient = models.ForeignKey(User, related_name='patient_requests', on_delete=models.SET_NULL, null=True)
     from_date = models.DateField()
     to_date = models.DateField()
     calendar = models.ForeignKey('calendars.Calendar', on_delete=models.SET_NULL, null=True)
