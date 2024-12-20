@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'analysis',
     'calendars',
     'job',
+    'location',
 ]
 
 MIDDLEWARE = [
