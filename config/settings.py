@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'users',
+    'time_table',
     'branch',
     'device',
     'analysis',
