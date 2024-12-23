@@ -7,3 +7,8 @@ from job.jobs.serializers.crud.crud import JobSerializer
 class JobListView(generics.ListAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+
+
+class JobRetrieveView(generics.RetrieveAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer

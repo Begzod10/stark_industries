@@ -10,7 +10,9 @@ class User(AbstractUser):
     address = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     sex = models.CharField(max_length=255)
-    branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE)
+    passport_series = models.CharField(max_length=255, default='')
+    passport_number = models.CharField(max_length=255, default='')
+    branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name
