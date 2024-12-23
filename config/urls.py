@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from  users.login.api.write import CustomTokenObtainPairView
+from users.login.api.read import CustomTokenRefreshView
+from rest_framework_simplejwt.views import TokenVerifyView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +27,11 @@ urlpatterns = [
     path('api/calendar/', include('calendars.calendar.api.urls')),
     path('api/user_job/', include('users.user_job.api.urls')),
     path('api/time_table/', include('job.job.api.urls')),
-
+    path('api/branch_info/', include('branch.urls')),
+    path('api/job_info/', include('job.urls')),
+    path('api/user/', include('users.urls')),
+    path('api/analysis/', include('analysis.urls')),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]

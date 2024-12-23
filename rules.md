@@ -17,7 +17,9 @@ pip freeze > requirements.txt
 ```bash
 pip install -r requirements.txt
  ```
-
+```bash
+python --version
+```
 
 ## Migrate
 
