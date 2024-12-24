@@ -11,4 +11,4 @@ class AnalysisGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Analysis
-        fields = ['id', 'name', 'device', 'price']
+        fields = ['id', 'name', 'device', 'price', 'type']
