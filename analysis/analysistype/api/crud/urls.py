@@ -6,6 +6,6 @@ from analysis.analysistype.api.crud.create import AnalysisTypeCreateView
 
 urlpatterns = [
     path('create/', AnalysisTypeCreateView.as_view(), name='create'),
-    path('update/<int:pk>', AnalysisTypeUpdateView.as_view(), name='update'),
-    path('delete/<int:pk>', AnalysisTypeDestroyView.as_view(), name='delete')
+    path('update/<int:pk>/', AnalysisTypeUpdateView.as_view(), name='update'),
+    path('delete/<int:pk>/', AnalysisTypeDestroyView.as_view(), name='delete')
 ]

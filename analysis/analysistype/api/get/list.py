@@ -3,10 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from analysis.models import AnalysisType
 
-from analysis.analysistype.serializers.crud.crud import AnalysisTypeCrudSerializer
+from analysis.analysistype.serializers.get.get import AnalysisTypeGetSerializer
 
 
-class AnalysisTypeUpdateView(generics.UpdateAPIView):
+class AnalysisTypeListView(generics.ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
     queryset = AnalysisType.objects.all()
-    serializer_class = AnalysisTypeCrudSerializer
+    serializer_class = AnalysisTypeGetSerializer
