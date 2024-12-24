@@ -6,9 +6,9 @@ from users.staff.api.get.get import StaffListView, StaffDetailView, StaffListDel
 
 urlpatterns = [
     path('create/', StaffRegisterView.as_view(), name='staff_create'),
-    path('update/<int:id>', StaffUpdateView.as_view(), name='staff_update'),
-    path('delete/<int:id>', StaffDestroyView.as_view(), name='staff_delete'),
+    path('update/<int:pk>', StaffUpdateView.as_view(), name='staff_update'),
+    path('delete/<int:pk>', StaffDestroyView.as_view(), name='staff_delete'),
     path('get_list/', StaffListView.as_view(), name='staff_list'),
     path('get_deleted_list/', StaffListDeletedView.as_view(), name='staff_deleted_list'),
-    path('get_detail/<int:id>', StaffDetailView.as_view(), name='staff_detail'),
+    path('get_detail/<int:pk>', StaffDetailView.as_view(), name='staff_detail'),
 ]
