@@ -5,9 +5,8 @@ from job.jobs.serializers.crud.crud import JobSerializer
 
 
 class StaffSerializer(ModelSerializer):
-    job = JobSerializer()
-
     class Meta:
         model = User
         fields = ['name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch',
-                  'username', 'email', 'passport_series', 'passport_number', 'job']
+                  'username', 'email', 'passport_series', 'passport_number']
+

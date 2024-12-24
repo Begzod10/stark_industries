@@ -13,6 +13,7 @@ class User(AbstractUser):
     passport_series = models.CharField(max_length=255, default='')
     passport_number = models.CharField(max_length=255, default='')
     branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE, default=1)
+    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
