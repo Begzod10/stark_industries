@@ -6,7 +6,7 @@ from analysis.models import AnalysisType
 from analysis.analysistype.serializers.crud.crud import AnalysisTypeCrudSerializer
 
 
-class AnalysisTypeUpdateView(generics.UpdateAPIView):
+class AnalysisTypeCreateView(generics.ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
     queryset = AnalysisType.objects.all()
     serializer_class = AnalysisTypeCrudSerializer

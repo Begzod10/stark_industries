@@ -7,8 +7,7 @@ from analysis.analysistype.serializers.crud.crud import AnalysisTypeCrudSerializ
 
 
 class AnalysisTypeDestroyView(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = AnalysisType.objects.all().select_related(
-        'device', 'type'
-    )
+    # permission_classes = [IsAuthenticated]
+    queryset = AnalysisType.objects.all()
     serializer_class = AnalysisTypeCrudSerializer
+
