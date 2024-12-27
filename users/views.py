@@ -27,6 +27,10 @@ class UsernameCheck(APIView):
 
 class UsernameCheckAuthorized(APIView):
     def post(self, request, *args, **kwargs):
-        if User.objects.filter(User.username == str(request.data['username']), User.pk != request.user.pk).exists():
-            return Response({"message": "Username already exists."},
+        username = request.data.get("username", None)
+        pk = request.data.get("pk", None)
+        if User.objects.filter(User.username == username, User.pk != pk).exists():
+            return Response({"message": "Username already exists.", "status": True},
                             status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "Username is available.", "status": False},
+                        status=status.HTTP_200_OK)
