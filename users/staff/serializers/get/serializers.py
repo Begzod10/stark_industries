@@ -14,5 +14,5 @@ class StaffSerializerGet(ModelSerializer):
 
     def get_job(self, obj):
         job = obj.userjobs_set.first()
-
-        return job.job.name
+        if job:
+            return job.job.name

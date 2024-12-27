@@ -6,6 +6,6 @@ class UserAnalysis(models.Model):
     user = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
     analysis = models.ForeignKey(Analysis, on_delete=models.SET_NULL, null=True)
     request = models.ForeignKey('UserRequest', on_delete=models.SET_NULL, null=True)
-    status = models.BooleanField()
+    status = models.BooleanField(default=False)
     expected_result = models.TextField()
     result = models.TextField()
