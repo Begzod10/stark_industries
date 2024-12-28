@@ -6,7 +6,7 @@ from device.models import Device
 
 
 class DeviceList(generics.ListAPIView):
-    queryset = Device.objects.all()
+    queryset = Device.objects.filter(deleted=False).all()
     serializer_class = DeviceListSerializer
     filter_backends = [SearchFilter]
     search_fields = ['name']

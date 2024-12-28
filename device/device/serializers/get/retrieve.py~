@@ -12,8 +12,7 @@ class DeviceRetrieveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'img','ip_address' ,'branch', 'can_delete']
 
     def get_can_delete(self, obj):
-        can_delete = obj.analysis_set.exists()
-
+        can_delete = obj.analysis_set.exits()
         if can_delete:
             return False
         else:

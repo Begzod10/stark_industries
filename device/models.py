@@ -5,3 +5,4 @@ class Device(models.Model):
     branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True,default=1)
     ip_address = models.GenericIPAddressField()
     img = models.ImageField(upload_to='images/', null=True, blank=True)
+    deleted = models.BooleanField(default=False)

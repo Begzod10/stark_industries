@@ -8,3 +8,5 @@ from device.models import Device
 class DeviceList(generics.ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceListSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name']

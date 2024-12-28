@@ -6,6 +6,6 @@ from .update import UpdateDevice
 
 urlpatterns = [
     path('create/', DeviceCreateView.as_view()),
-    path('delete/<int:pk>/', DeviceDelete.as_view()),
-    path('update/<int:pk>/', UpdateDevice.as_view()),
+    path('delete/<int:id>/', DeviceDelete.as_view()),
+    path('update/<int:id>/', UpdateDevice.as_view()),
 ]
