@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/', include('config.utilis.swagger')),
     path('api/device/', include('device.device.api.urls')),
     path('api/user_job/', include('users.user_job.api.urls')),
+    path('api/user_request/', include('users.user_request.api.urls')),
     path('api/branch_info/', include('branch.urls')),
     path('api/job_info/', include('job.urls')),
     path('api/user/', include('users.urls')),

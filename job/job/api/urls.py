@@ -1,4 +1,4 @@
 from django.urls import path,include
 urlpatterns = [
-    path('get/', include('education.education.api.get.urls')),
+    path('get/', include('job.jobs.api.get.urls')),
 ]

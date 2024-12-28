@@ -24,3 +24,4 @@ class UserRequest(models.Model):
     patient = models.ForeignKey(User, related_name='patient_requests', on_delete=models.SET_NULL, null=True)
     from_date = models.DateField()
     to_date = models.DateField()
+    date = models.DateField(null=True)
