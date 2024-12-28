@@ -27,7 +27,6 @@ urlpatterns = [
     path('api/job_info/', include('job.urls')),
     path('api/user/', include('users.urls')),
     path('api/analysis/', include('analysis.urls')),
-
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

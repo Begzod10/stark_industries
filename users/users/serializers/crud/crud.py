@@ -9,10 +9,9 @@ class UserCrudSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
-                  'email']
+                  'email', 'passport_series', 'passport_number']
 
     def validate_username(self, value):
         if User.objects.filter(username=value).exists():
             raise serializers.ValidationError("Ushbu username allaqachon ishlatilgan.")
         return value
-

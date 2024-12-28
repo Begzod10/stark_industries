@@ -1,8 +1,9 @@
-from django.urls import path, include
+from django.urls import path
 
 from users.users.api.crud.update import UsersUpdateView
 from users.users.api.crud.delete import UserDestroyView
 from users.users.api.crud.create import UserRegisterView
+
 
 urlpatterns = [
     path('create/', UserRegisterView.as_view(), name='create'),
