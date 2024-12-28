@@ -13,7 +13,7 @@ class UsernameCheck(APIView):
         username = request.data.get("username", None)
         if username and User.objects.filter(username=username).exists():
             return Response({"message": "Username already exists.", "status": True},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_200_OK)
         return Response({"message": "Username is available.", "status": False},
                         status=status.HTTP_200_OK)
 
@@ -29,8 +29,16 @@ class UsernameCheckAuthorized(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get("username", None)
         pk = request.data.get("pk", None)
-        if User.objects.filter(User.username == username, User.pk != pk).exists():
+
+        if username is None:
+            return Response({"message": "Username is required.", "status": True},
+                            status=status.HTTP_200_OK)
+
+        # Filter by username and exclude the user with the given primary key (pk)
+        if User.objects.filter(username=username).exclude(pk=pk).exists():
             return Response({"message": "Username already exists.", "status": True},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_200_OK)
+
         return Response({"message": "Username is available.", "status": False},
                         status=status.HTTP_200_OK)
+
