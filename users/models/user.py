@@ -22,6 +22,6 @@ class User(AbstractUser):
 class UserRequest(models.Model):
     doctor = models.ForeignKey(User, related_name='doctor_requests', on_delete=models.SET_NULL, null=True)
     patient = models.ForeignKey(User, related_name='patient_requests', on_delete=models.SET_NULL, null=True)
-    from_date = models.DateField()
-    to_date = models.DateField()
+    from_date = models.TimeField()
+    to_date = models.TimeField()
     date = models.DateField(null=True)

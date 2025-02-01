@@ -12,3 +12,7 @@ class Analysis(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=30, decimal_places=2)
     type = models.ForeignKey(AnalysisType, on_delete=models.SET_NULL, null=True)
+
+
+class Packet(models.Model):
+    name = models.CharField(max_length=255)
