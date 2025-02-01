@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from job.models import Job
 
 
 class User(AbstractUser):
@@ -17,6 +18,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name
+
+    @property
+    def jobs(self):
+        return Job.objects.filter(userjobs__user=self)
 
 
 class UserRequest(models.Model):

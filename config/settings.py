@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'device',
     'analysis',
     'job',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
