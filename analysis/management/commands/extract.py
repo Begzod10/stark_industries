@@ -75,4 +75,4 @@ class Command(BaseCommand):
                         if created_analysis:
                             self.stdout.write(self.style.SUCCESS(f"Analysis yaratildi: {analysis.name}"))
 # example to run
-# python manage.py extract C:/Users/shohj/PycharmProjects/stark_industry/analysis/management/commands/analiz.docx
+# python manage.py extract C:\Users\sunna\PycharmProjects\stark_industries\analysis\management\commands\analiz.docx
