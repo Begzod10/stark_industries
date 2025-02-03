@@ -1,9 +1,10 @@
 from rest_framework import generics
-from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-from analysis.analysistype.serializers.crud.crud import AnalysisTypeCrudSerializer
 from analysis.models import AnalysisType
+from rest_framework.response import Response
+from rest_framework import status
+from analysis.analysistype.serializers.crud.crud import AnalysisTypeCrudSerializer
 
 
 class AnalysisTypeDestroyView(generics.DestroyAPIView):
@@ -14,3 +15,4 @@ class AnalysisTypeDestroyView(generics.DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         super().destroy(request, *args, **kwargs)
         return Response({"message": "Analysis Type deleted successfully."}, status=status.HTTP_200_OK)
+

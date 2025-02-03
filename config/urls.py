@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/job_info/', include('job.urls')),
     path('api/user/', include('users.urls')),
     path('api/packet/', include('analysis.packet.api.urls')),
+    path('api/container/', include('analysis.container.api.urls')),
     path('api/analysis/', include('analysis.urls')),
 
     path('api/payment_type/', include('accounting.payment_types.api.urls')),

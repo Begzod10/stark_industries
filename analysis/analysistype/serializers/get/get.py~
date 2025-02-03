@@ -9,4 +9,4 @@ class AnalysisTypeGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalysisType
-        fields = '__all__'
+        fields = '__all_'
