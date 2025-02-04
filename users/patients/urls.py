@@ -1,9 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+from users.patients.api import PatientList
 
-from users.patients.api import PatientViewSet
+urlpatterns = [
+    path('', PatientList.as_view()),
 
-router = DefaultRouter()
-router.register(r'payment'
-                , PatientViewSet, basename='payment')
-
-urlpatterns = router.urls
+]
