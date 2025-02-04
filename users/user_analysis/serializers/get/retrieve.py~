@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from users.models.analysis import UserAnalysis
-from analysis.analysis.serializers.get.get import AnalysisSerializer
+from analysis.analysis.serializers.get.get import AnalysisGetSerializer
 
 
 class UserAnalysisGetSerializer(serializers.ModelSerializer):
-    analysis = AnalysisSerializer()  # Use nested serializer
+    analysis = AnalysisGetSerializer()  # Nest AnalysisSerializer
 
     class Meta:
         model = UserAnalysis

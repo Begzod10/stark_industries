@@ -12,7 +12,7 @@ class PatientList(generics.ListAPIView):
     filterset_fields = ['branch']
 
     def get_queryset(self):
-        return User.objects.filter(userjobs__job__name__isnull=False).distinct()
+        return User.objects.filter(userjobs__job__name="patient", deleted=False).distinct()
 
 
 class PatientListView(generics.ListAPIView):

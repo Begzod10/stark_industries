@@ -7,5 +7,4 @@ urlpatterns = [
     path('', PatientList.as_view()),
     path('list/', PatientListView.as_view()),
     path('delete/<int:pk>/', PatientDelete.as_view()),
-
 ]
