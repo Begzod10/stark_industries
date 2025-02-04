@@ -9,4 +9,6 @@ class UserAnalysis(models.Model):
     status = models.BooleanField(default=False)
     expected_result = models.TextField(null=True)
     result = models.TextField(null=True)
+    paid = models.BooleanField(default=False)
+
 

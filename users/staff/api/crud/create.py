@@ -15,9 +15,11 @@ class StaffRegisterView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        job = Job.objects.get(id=request.data['job_id'])
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        UserJobs.objects.create(user=serializer.instance, job=job)
+        jobs = request.data['jobs']
+        for job in jobs:
+            job = Job.objects.get(id=job['id'])
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            UserJobs.objects.create(user=serializer.instance, job=job)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+import uuid
+
+from job.models import Job
+
+
 
 class User(AbstractUser):
     name = models.CharField(max_length=255)
@@ -14,9 +19,19 @@ class User(AbstractUser):
     passport_number = models.CharField(max_length=255, default='')
     branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE, default=1)
     deleted = models.BooleanField(default=False)
+    user_id = models.BigIntegerField(unique=True, editable=False, null=True, default=None)
+
+    def save(self, *args, **kwargs):
+        if not self.user_id:
+            self.user_id = int(str(uuid.uuid4().int)[:8])  # Extract first 10 digits
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+    @property
+    def jobs(self):
+        return Job.objects.filter(userjobs__user=self)
 
 
 class UserRequest(models.Model):
