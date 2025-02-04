@@ -1,10 +1,10 @@
+import uuid
+from datetime import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-import uuid
-
 from job.models import Job
-
 
 
 class User(AbstractUser):
@@ -23,7 +23,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.user_id:
-            self.user_id = int(str(uuid.uuid4().int)[:8])  # Extract first 10 digits
+            self.user_id = int(str(uuid.uuid4().int)[:8])
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -32,6 +32,14 @@ class User(AbstractUser):
     @property
     def jobs(self):
         return Job.objects.filter(userjobs__user=self)
+
+    def calculate_age(self):
+        if not self.birth_date:
+            return None
+        today = datetime.today()
+        age = today.year - self.birth_date.year - (
+                (today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+        return age
 
 
 class UserRequest(models.Model):
