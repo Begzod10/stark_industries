@@ -22,4 +22,4 @@ class PatientListView(generics.ListAPIView):
     filterset_fields = ['branch']
 
     def get_queryset(self):
-        return User.objects.filter(userjobs__job__name="patient", deleted=False).distinct()
+        return User.objects.filter(userjobs__job__name="patient").distinct()

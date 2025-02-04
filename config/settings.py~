@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     'device',
     'analysis',
     'job',
+<<<<<<< HEAD
     'rest_framework_simplejwt',
+=======
     'accounting',
     'django_filters',
+>>>>>>> 8d93d2a349178f7318aa65f4b0bd49eaa4b38a7a
 
 ]
 

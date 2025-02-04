@@ -1,7 +1,5 @@
 from django.db import models
-
 from analysis.models import Analysis
-from users.models.job import UserJobs
 
 
 class UserAnalysis(models.Model):
@@ -13,9 +11,4 @@ class UserAnalysis(models.Model):
     result = models.TextField(null=True)
     paid = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        super(UserAnalysis, self).save(*args, **kwargs)
-        if self.status and self.paid and self.result:
-            UserJobs.objects.filter(user=self.user).update(payed=True)
-        else:
-            UserJobs.objects.filter(user=self.user).update(payed=False)
+
