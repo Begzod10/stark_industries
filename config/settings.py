@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'analysis',
     'job',
     'accounting',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [

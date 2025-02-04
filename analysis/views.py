@@ -2,7 +2,7 @@ import pprint
 
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests
+# import requests
 from django.views.decorators.csrf import csrf_exempt
 import json
 from users.models.user import User
