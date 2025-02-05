@@ -22,4 +22,12 @@ class PatientListView(generics.ListAPIView):
     filterset_fields = ['branch']
 
     def get_queryset(self):
-        return User.objects.filter(userjobs__job__name="patient", deleted=False).distinct()
+        queryset = User.objects.filter(userjobs__job__name="patient", deleted=False).distinct()
+        filter_paid = self.request.query_params.get("filter_paid")
+
+        if filter_paid == "true":
+            queryset = queryset.filter(userjobs__paid=True).distinct()
+        elif filter_paid == "false":
+            queryset = queryset.filter(userjobs__paid=False).distinct()
+
+        return queryset
