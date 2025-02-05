@@ -8,7 +8,6 @@ class AnalysisCrudSerializer(serializers.ModelSerializer):
     # device = serializers.PrimaryKeyRelatedField(queryset=Device.objects.all())
     # type = serializers.PrimaryKeyRelatedField(queryset=AnalysisType.objects.all())
 
-
     class Meta:
         model = Analysis
         fields = '__all__'

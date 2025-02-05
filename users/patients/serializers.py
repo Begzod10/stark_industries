@@ -22,4 +22,4 @@ class PatientListSerializer(serializers.ModelSerializer):
 
     def get_status(self, obj):
         status = UserJobs.objects.get(user=obj)
-        return status.payed
+        return status.paid

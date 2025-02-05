@@ -10,7 +10,7 @@ class PacketListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Packet
-        fields = ['id', 'name', 'analysis', 'total_price']
+        fields = ['id', 'name', 'analysis', 'total_price', 'branch']
 
     def get_total_price(self, obj):
         return sum(analysis.price for analysis in obj.analysis_set.all())

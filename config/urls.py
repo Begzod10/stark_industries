@@ -20,7 +20,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
 
-    TokenVerifyView,TokenRefreshView,TokenObtainPairView
+    TokenVerifyView, TokenRefreshView, TokenObtainPairView
+)
+from users.login.api.views import (
+    CustomTokenObtainPairView,
+    CustomTokenRefreshView,
+
 )
 
 # from users.login.api.read import CustomTokenRefreshView
@@ -41,8 +46,8 @@ urlpatterns = [
     path('api/payment_type/', include('accounting.payment_types.api.urls')),
     path('api/payment/', include('accounting.payment.urls')),
     path('api/payment_analysis/', include('accounting.payment_analysis.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 

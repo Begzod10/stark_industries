@@ -5,4 +5,4 @@ from analysis.models import Packet
 class PacketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Packet
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'branch']

@@ -5,4 +5,4 @@ from analysis.models import AnalysisType
 class AnalysisTypeCrudSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnalysisType
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'branch']

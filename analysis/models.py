@@ -3,22 +3,21 @@ from django.db import models
 from device.models import Device
 
 
-class Packet(models.Model):
-    name = models.CharField(max_length=255)
-
-
 class AnalysisType(models.Model):
     name = models.CharField(max_length=255)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
 
 
 class Packet(models.Model):
     name = models.CharField(max_length=255)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
 
 
 class Container(models.Model):
     name = models.CharField(max_length=255)
     color = models.CharField(max_length=255)
     size = models.CharField(max_length=255)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
 
 
 class Analysis(models.Model):
@@ -28,5 +27,5 @@ class Analysis(models.Model):
     price = models.IntegerField(null=True)
     type = models.ForeignKey(AnalysisType, on_delete=models.SET_NULL, null=True)
     container = models.ForeignKey(Container, on_delete=models.SET_NULL, null=True)
-    code_name = models.CharField(max_length=255,null=True)
-
+    code_name = models.CharField(max_length=255, null=True)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
