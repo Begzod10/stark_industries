@@ -13,7 +13,7 @@ class UsersAnalysisList(ListAPIView):
     queryset = UserAnalysis.objects.all()
     serializer_class = UserAnalysisGetSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['user']
+    filterset_fields = ['user', 'paid']
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
