@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from accounting.models import Payment
-from users.models import UserAnalysis, UserJobs
+from users.models import User, UserAnalysis, UserJobs
 
 
 class PaymentSerializer(ModelSerializer):
@@ -10,7 +10,8 @@ class PaymentSerializer(ModelSerializer):
         fields = ['id', 'payment_type', 'amount', 'date', 'user']
 
     def create(self, validated_data):
-        user = validated_data['user']
+        print(validated_data)
+        user = User.objects.get(validated_data['user'])
         user_jobs = UserJobs.objects.get(user=user)
         payment_sum = 0
         user_analysis = UserAnalysis.objects.filter(user=user, paid=False).all()
