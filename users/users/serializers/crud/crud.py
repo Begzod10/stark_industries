@@ -13,21 +13,16 @@ class UserCrudSerializer(serializers.ModelSerializer):
     from_date = serializers.TimeField(required=False, write_only=True)
     to_date = serializers.TimeField(required=False, write_only=True)
     date = serializers.DateField(required=False, write_only=True)
-    analysis_id = serializers.PrimaryKeyRelatedField(queryset=Analysis.objects.all(), required=False, write_only=True,
-                                                     many=True)
+    analysis = serializers.PrimaryKeyRelatedField(queryset=Analysis.objects.all(), required=False, write_only=True,
+                                                  many=True)
     email = serializers.EmailField(required=False, allow_null=True, allow_blank=True)
 
     class Meta:
         model = User
         fields = [
             'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
-            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis_id'
+            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis'
         ]
-
-    def validate_username(self, value):
-        if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Ushbu username allaqachon ishlatilgan.")
-        return value
 
     def create(self, validated_data):
         return self._save_user(None, validated_data)
@@ -40,7 +35,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         from_date = validated_data.pop('from_date', None)
         to_date = validated_data.pop('to_date', None)
         date = validated_data.pop('date', None)
-        analysis = validated_data.pop('analysis_id', None)
+        analysis = validated_data.pop('analysis', None)
 
         if instance is None:
             instance = User.objects.create(**validated_data)
@@ -80,7 +75,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
                 )
 
         return instance
-#
+
 # class UserCrudSerializer(serializers.ModelSerializer):
 #     branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all())
 #     doctor_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, write_only=True)

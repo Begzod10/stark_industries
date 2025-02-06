@@ -16,6 +16,6 @@ class UserAnalysis(models.Model):
     def save(self, *args, **kwargs):
         super(UserAnalysis, self).save(*args, **kwargs)
         if self.status and self.paid and self.result:
-            UserJobs.objects.filter(user=self.user).update(payed=True)
+            UserJobs.objects.filter(user=self.user).update(paid=True)
         else:
-            UserJobs.objects.filter(user=self.user).update(payed=False)
+            UserJobs.objects.filter(user=self.user).update(paid=False)
