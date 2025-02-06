@@ -28,7 +28,6 @@ class PaymentSerializer(ModelSerializer):
         return payment
 
 
-class PaymentListSerializer(ModelSerializer):
     payment_type = serializers.CharField(source='payment_type.payment_type')
     user = serializers.SerializerMethodField()
     amount = serializers.SerializerMethodField()

@@ -7,7 +7,6 @@ from rest_framework.response import Response
 
 from accounting.models import Payment
 from accounting.payment.serializers import PaymentSerializer, PaymentListSerializer
-from users.models import UserAnalysis
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -18,10 +17,6 @@ class PaymentViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         instance.deleted = True
         instance.save()
-        analyis = UserAnalysis.objects.get(payment=instance)
-        analyis.paid = False
-        analyis.payment = None
-        analyis.save()
         return Response({"message": "Payment deleted successfully."}, status=status.HTTP_200_OK)
 
 
