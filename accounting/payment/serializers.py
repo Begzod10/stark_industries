@@ -14,11 +14,13 @@ class PaymentSerializer(ModelSerializer):
         user_jobs = UserJobs.objects.get(user=user)
         payment_sum = 0
         user_analysis = UserAnalysis.objects.filter(user=user, paid=False).all()
+        payment = Payment.objects.create(**validated_data)
         for analysis in user_analysis:
             payment_sum += analysis.analysis.price
             analysis.paid = True
+            analysis.payment = payment
             analysis.save()
 
         user_jobs.paid = True
-        validated_data['amount'] = payment_sum
-        return Payment.objects.create(**validated_data)
+        payment.amount = payment_sum
+        return payment

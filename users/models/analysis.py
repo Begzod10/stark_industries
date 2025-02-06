@@ -12,6 +12,7 @@ class UserAnalysis(models.Model):
     expected_result = models.TextField(null=True)
     result = models.TextField(null=True)
     paid = models.BooleanField(default=False, null=True)
+    payment = models.ForeignKey('accounting.Payment', on_delete=models.SET_NULL, null=True)
 
     def save(self, *args, **kwargs):
         super(UserAnalysis, self).save(*args, **kwargs)

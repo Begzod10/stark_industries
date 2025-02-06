@@ -19,7 +19,7 @@ class UsersAnalysisList(ListAPIView):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
 
-        packet_data = defaultdict(lambda: {"packet_id": None, "packet_name": None, "analysis_list": []})
+        packet_data = defaultdict(lambda: {"packet_id": None, "packet_name": None, "analysis_list": [], "total": 0})
         analysis_list = []
 
         for item in serializer.data:
@@ -33,6 +33,7 @@ class UsersAnalysisList(ListAPIView):
                     if packet_id:
                         packet_data[packet_id]["packet_id"] = packet_id
                         packet_data[packet_id]["packet_name"] = packet_name
+                        packet_data[packet_id]["total"] += item["price"]
                         packet_data[packet_id]["analysis_list"].append(item)
                 else:
                     analysis_list.append(item)

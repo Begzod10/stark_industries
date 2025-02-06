@@ -5,7 +5,14 @@ from analysis.analysis.serializers.get.get import AnalysisSerializer
 
 class UserAnalysisGetSerializer(serializers.ModelSerializer):
     analysis = AnalysisSerializer()  # Use nested serializer
+    price = serializers.SerializerMethodField()  # Add price field.
+
 
     class Meta:
         model = UserAnalysis
-        fields = ['id', 'user', 'analysis', 'status', 'expected_result', 'result', 'paid']
+        fields = ['id', 'user', 'analysis', 'status', 'expected_result', 'result', 'paid', 'price']
+
+    def get_price(self, obj):
+        return obj.analysis.price
+
+
