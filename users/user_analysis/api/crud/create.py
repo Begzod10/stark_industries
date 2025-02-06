@@ -7,3 +7,5 @@ from users.user_analysis.serializers.crud.serializers import UserAnalysisCreateU
 class UserAnalysisCreateView(generics.CreateAPIView):
     queryset = UserAnalysis.objects.all()
     serializer_class = UserAnalysisCreateUpdateSerializer
+
+

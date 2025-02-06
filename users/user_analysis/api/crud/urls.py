@@ -6,6 +6,6 @@ from .update import UserAnalysisUpdateView
 
 urlpatterns = [
     path('create/', UserAnalysisCreateView.as_view()),
-    path('delete/<int:id>', UserAnalysisDeleteView.as_view()),
-    path('update/<int:id>', UserAnalysisUpdateView.as_view()),
+    path('delete/<int:pk>', UserAnalysisDeleteView.as_view()),
+    path('update/<int:pk>', UserAnalysisUpdateView.as_view()),
 ]

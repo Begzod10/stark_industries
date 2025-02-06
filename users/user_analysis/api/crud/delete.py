@@ -12,4 +12,4 @@ class UserAnalysisDeleteView(generics.DestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         super().delete(request, *args, **kwargs)
-        return Response({"message": "UserJobs deleted successfully."}, status=status.HTTP_200_OK)
+        return Response({"message": "User analysis deleted successfully."}, status=status.HTTP_200_OK)
