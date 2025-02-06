@@ -19,6 +19,9 @@ class Payment(models.Model):
     amount = models.BigIntegerField(default=0)
     date = models.DateField(null=True, default=datetime.now)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
+    deleted = models.BooleanField(default=False)
+
 
 
 class PaymentAnalysis(models.Model):
