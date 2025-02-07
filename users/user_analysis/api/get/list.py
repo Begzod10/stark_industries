@@ -26,7 +26,7 @@ class UsersAnalysisList(ListAPIView):
             analysis = item.get("analysis")
             if analysis:
                 packet = analysis.get("packet")
-                if isinstance(packet, dict):  # Ensure packet is a dictionary
+                if isinstance(packet, dict) and item.get("by_packet"):  # Ensure packet is a dictionary
                     packet_id = packet.get("id")
                     packet_name = packet.get("name")
 

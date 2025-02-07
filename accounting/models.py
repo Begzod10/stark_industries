@@ -23,7 +23,6 @@ class Payment(models.Model):
     deleted = models.BooleanField(default=False)
 
 
-
 class PaymentAnalysis(models.Model):
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True)
     analysis = models.ForeignKey('analysis.Analysis', on_delete=models.SET_NULL, null=True)

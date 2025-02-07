@@ -10,7 +10,7 @@ class UserAnalysisGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserAnalysis
-        fields = ['id', 'user', 'analysis', 'status', 'expected_result', 'result', 'paid', 'price']
+        fields = ['id', 'user', 'analysis', 'status', 'expected_result', 'result', 'paid', 'price', 'by_packet']
 
     def get_price(self, obj):
         return obj.analysis.price
