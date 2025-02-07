@@ -1,7 +1,8 @@
-from django.db import models
-from users.models import User
-from branch.models import Branch, Location
 from datetime import datetime
+
+from django.db import models
+
+from users.models import User
 
 
 # Create your models here.
@@ -17,7 +18,9 @@ class Payment(models.Model):
     payment_type = models.ForeignKey(PaymentType, on_delete=models.SET_NULL, null=True)
     amount = models.BigIntegerField(default=0)
     date = models.DateField(null=True, default=datetime.now)
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
+    deleted = models.BooleanField(default=False)
 
 
 class PaymentAnalysis(models.Model):

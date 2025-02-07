@@ -11,7 +11,10 @@ class UserAnalysis(models.Model):
     status = models.BooleanField(default=False)
     expected_result = models.TextField(null=True)
     result = models.TextField(null=True)
-    paid = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False, null=True)
+    payment = models.ForeignKey('accounting.Payment', on_delete=models.SET_NULL, null=True)
+    by_packet = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
         super(UserAnalysis, self).save(*args, **kwargs)

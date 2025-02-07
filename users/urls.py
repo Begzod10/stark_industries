@@ -9,4 +9,5 @@ urlpatterns = [
     path('username-check-authorized/', views.UsernameCheckAuthorized.as_view(), name='username_check_authorized'),
     path('patient/', include('users.patients.urls')),
     path('user_analysis_get/', include('users.user_analysis.api.get.urls')),
+    path('user_analysis_crud/', include('users.user_analysis.api.crud.urls')),
 ]
