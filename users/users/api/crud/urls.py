@@ -6,7 +6,8 @@ from users.users.api.crud.create import UserRegisterView, UseraddRequest
 
 urlpatterns = [
     path('create/', UserRegisterView.as_view(), name='create'),
-    path('add_user_request/<int:pk>', UseraddRequest.as_view(), name='add_user_request'),
+    path('add_user_request/', UseraddRequest.as_view(), name='add_user_request'),
     path('update/<int:pk>', UsersUpdateView.as_view(), name='update'),
     path('delete/<int:pk>', UserDestroyView.as_view(), name='delete'),
+    path('delete_request/<int:pk>', UserDestroyView.as_view(), name='delete'),
 ]

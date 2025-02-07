@@ -21,9 +21,11 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
         ]
 
     def get_user_request(self, obj):
-        user_request = UserRequest.objects.filter(patient=obj).first()
+        request_id = self.context.get('request_id')
+        user_request = UserRequest.objects.filter(patient=obj, id=request_id).first()
         if user_request:
             return {
+                "id": user_request.id,
                 "doctor": user_request.doctor.id,
                 "from_date": user_request.from_date,
                 "to_date": user_request.to_date,
@@ -32,7 +34,8 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
         return None
 
     def get_analysis_list(self, obj):
-        user_request = UserRequest.objects.filter(patient=obj).first()
+        request_id = self.context.get('request_id')
+        user_request = UserRequest.objects.filter(patient=obj, id=request_id).first()
         if not user_request:
             return {"packets": [], "individuals": [], "individual_total_price": 0}
 
