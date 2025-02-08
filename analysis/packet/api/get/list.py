@@ -10,5 +10,5 @@ class PacketListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['branch']
 
-    def get_queryset(self):
-        return Packet.objects.filter(analysis__isnull=False).distinct()
+    # def get_queryset(self):
+    #     return Packet.objects.filter(analysis__isnull=False).distinct()
