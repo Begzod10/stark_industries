@@ -7,9 +7,18 @@ from users.models.user import User
 
 
 class JobSerializer(ModelSerializer):
+    can_delete = serializers.SerializerMethodField()
+
     class Meta:
         model = Job
-        fields = '__all__'
+        fields = ['id', 'name', 'has_client', 'can_delete']
+
+    def get_can_delete(self, obj):
+        jobs = ['admin', 'doctor', 'patient', 'reception']
+        if obj.name in jobs:
+            return False
+        else:
+            return True
 
 
 class DoctorSerializer(ModelSerializer):

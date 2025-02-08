@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from users.models.user import User
+from users.models.job import UserJobs, Job
 from branch.models import Branch
 from users.models.user import UserRequest
 from analysis.models import Analysis
@@ -33,7 +34,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         return self._save_user(instance, validated_data)
 
-
     def _save_user(self, instance, validated_data):
         user_request_id = validated_data.pop('user_request_id', None)
         doctor = validated_data.pop('doctor_id', None)
@@ -41,10 +41,12 @@ class UserCrudSerializer(serializers.ModelSerializer):
         to_date = validated_data.pop('to_date', None)
         date = validated_data.pop('date', None)
         analysis = validated_data.pop('analysis', None)
+        job = Job.objects.filter(name="patient").first()
 
         if instance is None:
             instance = User.objects.create(**validated_data)
             user_request = None
+            UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)

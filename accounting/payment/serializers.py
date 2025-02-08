@@ -22,9 +22,9 @@ class PaymentSerializer(ModelSerializer):
             analysis.paid = True
             analysis.payment = payment
             analysis.save()
-
         user_jobs.paid = True
         payment.amount = payment_sum
+        payment.save()
         return payment
 
 
