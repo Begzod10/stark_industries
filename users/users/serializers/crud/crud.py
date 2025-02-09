@@ -43,7 +43,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
         birth_date = validated_data.pop('birth_date', None)
         phone_number = validated_data.pop('phone_number', None)
         address = validated_data.pop('address', None)
-        password = validated_data.pop('password', None)
         sex = validated_data.pop('sex', None)
         branch = validated_data.pop('branch', None)
         username = validated_data.pop('username', None)
@@ -61,23 +60,34 @@ class UserCrudSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password', None)
 
         if instance is None:
-            instance = User.objects.create(**validated_data)
+            instance = User.objects.create(name=name,
+                                           surname=surname,
+                                           birth_date=birth_date,
+                                           phone_number=phone_number,
+                                           address=address,
+                                           password=password,
+                                           sex=sex,
+                                           branch=branch,
+                                           username=username,
+                                           email=email,
+                                           passport_series=passport_series,
+                                           passport_number=passport_number)
             if password is not None:
                 instance.set_password(password)
                 instance.save()
-            instance = User.objects.create(
-                name=name,
-                surname=surname,
-                birth_date=birth_date,
-                phone_number=phone_number,
-                address=address,
-                password=password,
-                sex=sex,
-                branch=branch,
-                username=username,
-                email=email,
-                passport_series=passport_series,
-                passport_number=passport_number)
+            # instance = User.objects.create(
+            #     name=name,
+            #     surname=surname,
+            #     birth_date=birth_date,
+            #     phone_number=phone_number,
+            #     address=address,
+            #     password=password,
+            #     sex=sex,
+            #     branch=branch,
+            #     username=username,
+            #     email=email,
+            #     passport_series=passport_series,
+            #     passport_number=passport_number)
             UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
