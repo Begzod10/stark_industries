@@ -11,7 +11,7 @@ from users.models import UserAnalysis
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.filter(deleted=False).all()
     serializer_class = PaymentSerializer
 
     def destroy(self, request, *args, **kwargs):
@@ -36,7 +36,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 
 class PaymentList(generics.ListAPIView):
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.filter(deleted=False).all()
     serializer_class = PaymentListSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['first_name', 'last_name', 'email']
