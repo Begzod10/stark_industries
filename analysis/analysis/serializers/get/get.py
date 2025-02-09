@@ -14,7 +14,7 @@ class AnalysisGetSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'device', 'container', 'type', 'packet', 'price', 'code_name']
 
     def get_type(self, obj):
-        return obj.type.name
+        return obj.type.name if obj.type else None
 
 
 # Ensure both ID and Name are included
