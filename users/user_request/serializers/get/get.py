@@ -12,7 +12,7 @@ class UserRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserRequest
-        fields = ['id', 'doctor', 'patient_name', 'start', 'end', 'date', 'status']
+        fields = ['id', 'doctor', 'patient_name', 'start', 'end', 'date', 'status', 'patient']
 
     def get_start(self, obj):
         return f"{obj.date} {obj.from_date.strftime('%H:%M')}"

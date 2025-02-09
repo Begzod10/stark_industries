@@ -10,3 +10,12 @@ class UserDestroyView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserCrudSerializer
+
+
+class UserRequestAnalysisDeleteView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCrudSerializer
+
+    def perform_destroy(self, instance):
+        serializer = self.get_serializer()
+        serializer.delete(instance)

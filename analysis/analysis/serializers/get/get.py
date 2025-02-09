@@ -6,12 +6,15 @@ from analysis.models import Analysis
 class AnalysisGetSerializer(serializers.ModelSerializer):
     device = serializers.CharField(source='device.name', required=False)
     container = serializers.CharField(source='container.name', required=False)
-    type = serializers.CharField(source='analysistype.name', required=False)
+    type = serializers.SerializerMethodField()
     packet = serializers.CharField(source='packet.name', required=False)
 
     class Meta:
         model = Analysis
-        fields = '__all__'
+        fields = ['id', 'name', 'device', 'container', 'type', 'packet', 'price', 'code_name']
+
+    def get_type(self, obj):
+        return obj.type.name
 
 
 # Ensure both ID and Name are included

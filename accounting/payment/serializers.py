@@ -1,7 +1,7 @@
 from django.db.models import Sum
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-
+from accounting.payment_types.serializers.retrieve import PaymentTypeRetrieveSerializer
 from accounting.models import Payment
 from users.models import UserAnalysis, UserJobs
 
@@ -9,7 +9,7 @@ from users.models import UserAnalysis, UserJobs
 class PaymentSerializer(ModelSerializer):
     class Meta:
         model = Payment
-        fields = ['id', 'payment_type', 'amount', 'date', 'user','branch']
+        fields = ['id', 'payment_type', 'amount', 'date', 'user', 'branch']
 
     def create(self, validated_data):
         user = validated_data['user']
@@ -22,20 +22,20 @@ class PaymentSerializer(ModelSerializer):
             analysis.paid = True
             analysis.payment = payment
             analysis.save()
-
         user_jobs.paid = True
         payment.amount = payment_sum
+        payment.save()
         return payment
 
 
 class PaymentListSerializer(ModelSerializer):
-    payment_type = serializers.CharField(source='payment_type.payment_type')
     user = serializers.SerializerMethodField()
     amount = serializers.SerializerMethodField()
+    payment_type = PaymentTypeRetrieveSerializer()
 
     class Meta:
         model = Payment
-        fields = ['id', 'payment_type', 'date', 'user', 'amount']
+        fields = ['id', 'payment_type', 'date', 'user', 'amount', 'branch', 'deleted']
 
     def get_user(self, obj):
         return f"{obj.user.name} {obj.user.surname}"

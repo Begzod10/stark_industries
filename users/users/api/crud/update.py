@@ -7,6 +7,6 @@ from users.users.serializers.crud.crud import UserCrudSerializer
 
 
 class UsersUpdateView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserCrudSerializer
