@@ -19,7 +19,7 @@ class UserAnalysisAdmin(admin.ModelAdmin):
 
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(admin.ModelAdmin):
     list_display = [field.name for field in User._meta.fields]
     list_filter = [field.name for field in User._meta.fields if field.get_internal_type() != "TextField"]
     search_fields = ('username', 'name', 'surname', 'phone_number')
