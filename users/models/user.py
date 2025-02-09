@@ -20,6 +20,7 @@ class User(AbstractUser):
     branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE, default=1)
     deleted = models.BooleanField(default=False)
     user_id = models.BigIntegerField(unique=True, editable=False, null=True, default=None)
+    photo = models.ImageField(upload_to='photos/users/', null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.user_id:

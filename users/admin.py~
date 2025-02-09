@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import UserJobs, UserAnalysis, User, UserRequest
+from .models import UserJobs, UserAnalysis,User,UserRequest
 
 
 @admin.register(UserJobs)
@@ -16,18 +15,16 @@ class UserAnalysisAdmin(admin.ModelAdmin):
     list_display = [field.name for field in UserAnalysis._meta.fields]
     list_filter = [field.name for field in UserAnalysis._meta.fields if field.get_internal_type() != "TextField"]
     search_fields = ('user__name', 'analysis__name')
-
-
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = [field.name for field in User._meta.fields]
-    list_filter = [field.name for field in User._meta.fields if field.get_internal_type() != "TextField"]
+    list_display = ('id', 'username', 'name', 'surname', 'phone_number', 'birth_date', 'sex', 'deleted')
     search_fields = ('username', 'name', 'surname', 'phone_number')
+    list_filter = ('sex', 'deleted')
     ordering = ('id',)
 
 
 @admin.register(UserRequest)
 class UserRequestAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in UserRequest._meta.fields]
-    list_filter = [field.name for field in UserRequest._meta.fields if field.get_internal_type() != "TextField"]
+    list_display = ('id', 'doctor', 'patient', 'from_date', 'to_date', 'date')
     search_fields = ('doctor__name', 'patient__name')
+    list_filter = ('date',)
