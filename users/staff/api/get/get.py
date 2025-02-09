@@ -6,7 +6,12 @@ from django.db.models import Q
 
 
 class StaffListView(generics.ListAPIView):
-    queryset = User.objects.filter(deleted=False).filter(~Q(userjobs__job__name="admin")).all()
+    from django.db.models import Q
+
+    queryset = User.objects.filter(deleted=False) \
+        .filter(~Q(userjobs__job__name="admin")) \
+        .filter(~Q(userjobs__job__name="patient"))  # Exclude users with 'patient' job
+
     serializer_class = StaffSerializerGet
 
 

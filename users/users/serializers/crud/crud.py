@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from analysis.models import Analysis
 from branch.models import Branch
 from users.models.analysis import UserAnalysis
 from users.models.job import UserJobs, Job
@@ -14,13 +13,12 @@ class UserCrudSerializer(serializers.ModelSerializer):
     from_date = serializers.TimeField(required=False, write_only=True)
     to_date = serializers.TimeField(required=False, write_only=True)
     date = serializers.DateField(required=False, write_only=True)
-    analysis = serializers.PrimaryKeyRelatedField(
-        queryset=Analysis.objects.all(), required=False, write_only=True, many=True
-    )
     user_request_id = serializers.IntegerField(required=False, write_only=True)
     email = serializers.EmailField(required=False, allow_null=True, allow_blank=True)
     photo = serializers.ImageField(required=False, allow_null=True)
     password = serializers.CharField(required=False)
+    analysis_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
+    packet_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
 
     class Meta:
         model = User
@@ -28,6 +26,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
             'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
             'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis',
             'user_request_id', 'photo'
+            , 'analysis_list', 'packet_list'
         ]
 
     def create(self, validated_data):
@@ -38,12 +37,26 @@ class UserCrudSerializer(serializers.ModelSerializer):
 
     def _save_user(self, instance, validated_data):
         user_request = None
+
+        name = validated_data.pop('name', None)
+        surname = validated_data.pop('surname', None)
+        birth_date = validated_data.pop('birth_date', None)
+        phone_number = validated_data.pop('phone_number', None)
+        address = validated_data.pop('address', None)
+        password = validated_data.pop('password', None)
+        sex = validated_data.pop('sex', None)
+        branch = validated_data.pop('branch', None)
+        username = validated_data.pop('username', None)
+        email = validated_data.pop('email', None)
+        passport_series = validated_data.pop('passport_series', None)
+        passport_number = validated_data.pop('passport_number', None)
+
         user_request_id = validated_data.pop('user_request_id', None)
         doctor = validated_data.pop('doctor_id', None)
         from_date = validated_data.pop('from_date', None)
         to_date = validated_data.pop('to_date', None)
         date = validated_data.pop('date', None)
-        analysis = validated_data.pop('analysis', None)
+
         job = Job.objects.filter(name="patient").first()
         password = validated_data.pop('password', None)
 
@@ -52,6 +65,19 @@ class UserCrudSerializer(serializers.ModelSerializer):
             if password is not None:
                 instance.set_password(password)
                 instance.save()
+            instance = User.objects.create(
+                name=name,
+                surname=surname,
+                birth_date=birth_date,
+                phone_number=phone_number,
+                address=address,
+                password=password,
+                sex=sex,
+                branch=branch,
+                username=username,
+                email=email,
+                passport_series=passport_series,
+                passport_number=passport_number)
             UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
@@ -77,17 +103,20 @@ class UserCrudSerializer(serializers.ModelSerializer):
                     date=date
                 )
 
-        if user_request and analysis:
+        if user_request:
             UserAnalysis.objects.filter(user=instance, request=user_request).delete()
-            for analysis_item in analysis:
-                UserAnalysis.objects.create(
-                    user=instance,
-                    analysis=analysis_item,
-                    request=user_request,
-                    status=False,
-                    expected_result=None,
-                    result=None
-                )
+
+            analysis_list = validated_data.pop('analysis_list', [])
+            packet_list = validated_data.pop('packet_list', [])
+
+            user_analysis_instances = [
+                UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=False)
+                for analysis in analysis_list
+            ]
+            user_analysis_instances += [
+                UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=True)
+                for analysis in packet_list
+            ]
 
         return instance
 
