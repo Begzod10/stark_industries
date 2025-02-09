@@ -7,6 +7,3 @@ class Device(models.Model):
     ip_address = models.GenericIPAddressField()
     img = models.ImageField(upload_to='images/', null=True, blank=True)
     deleted = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name

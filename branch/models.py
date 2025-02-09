@@ -8,6 +8,9 @@ from django.dispatch import receiver
 class Location(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Branch(models.Model):
     name = models.CharField(max_length=255)
@@ -17,6 +20,9 @@ class Branch(models.Model):
     phone_number = models.CharField(max_length=255)
     ip_address = models.GenericIPAddressField()
     main = models.BooleanField()
+
+    def __str__(self):
+        return self.name
 
 
 @receiver(post_migrate)
