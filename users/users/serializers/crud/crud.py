@@ -24,7 +24,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
-            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis',
+            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date',
             'user_request_id', 'photo'
             , 'analysis_list', 'packet_list'
         ]
