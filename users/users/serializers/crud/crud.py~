@@ -49,9 +49,8 @@ class UserCrudSerializer(serializers.ModelSerializer):
 
         if instance is None:
             instance = User.objects.create(**validated_data)
-            if password is not None:
-                instance.set_password(password)
-                instance.save()
+            instance.set_password(password)
+            instance.save()
             UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
