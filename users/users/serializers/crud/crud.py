@@ -20,6 +20,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
     user_request_id = serializers.IntegerField(required=False, write_only=True)
     email = serializers.EmailField(required=False, allow_null=True, allow_blank=True)
     photo = serializers.ImageField(required=False, allow_null=True)
+    password = serializers.CharField(required=False, write_only=True)
 
     class Meta:
         model = User
