@@ -23,6 +23,7 @@ class PaymentSerializer(ModelSerializer):
             analysis.payment = payment
             analysis.save()
         user_jobs.paid = True
+        user_jobs.save()
         payment.amount = payment_sum
         payment.save()
         return payment
@@ -30,7 +31,7 @@ class PaymentSerializer(ModelSerializer):
 
 class PaymentListSerializer(ModelSerializer):
     user = serializers.SerializerMethodField()
-    amount = serializers.SerializerMethodField()
+    # amount = serializers.SerializerMethodField()
     payment_type = PaymentTypeRetrieveSerializer()
 
     class Meta:
@@ -40,5 +41,5 @@ class PaymentListSerializer(ModelSerializer):
     def get_user(self, obj):
         return f"{obj.user.name} {obj.user.surname}"
 
-    def get_amount(self, obj):
-        return UserAnalysis.objects.filter(payment=obj).aggregate(amount=Sum('analysis__price'))
+    # def get_amount(self, obj):
+    #     return UserAnalysis.objects.filter(payment=obj).aggregate(amount=Sum('analysis__price'))
