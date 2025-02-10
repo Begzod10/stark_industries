@@ -25,7 +25,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['branch'] = user.branch.name
         data['branch_id'] = user.branch.id
         data["role"] = user.userjobs_set.first().job.name if user.userjobs_set.exists() else "No Role"
-
         return data
 
 

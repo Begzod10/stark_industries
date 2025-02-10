@@ -4,6 +4,9 @@ from rest_framework.serializers import ModelSerializer
 from accounting.payment_types.serializers.retrieve import PaymentTypeRetrieveSerializer
 from accounting.models import Payment
 from users.models import UserAnalysis, UserJobs
+from rest_framework.response import Response
+
+from rest_framework import status
 
 
 class PaymentSerializer(ModelSerializer):
@@ -26,7 +29,8 @@ class PaymentSerializer(ModelSerializer):
         user_jobs.save()
         payment.amount = payment_sum
         payment.save()
-        return payment
+        return Response({"message": "Payment created successfully.", "payment": PaymentSerializer(payment).data},
+                        status=status.HTTP_200_OK)
 
 
 class PaymentListSerializer(ModelSerializer):

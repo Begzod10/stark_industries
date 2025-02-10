@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 
-jobs = ['reception', 'admin', 'operator', 'mainAdmin']
+jobs = ['reception', 'admin', 'operator', 'mainAdmin', 'patient']
 
 
 class Job(models.Model):
