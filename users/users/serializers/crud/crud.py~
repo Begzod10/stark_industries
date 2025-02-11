@@ -1,16 +1,10 @@
 from rest_framework import serializers
 
-from analysis.models import Analysis
 from branch.models import Branch
 from users.models.analysis import UserAnalysis
-<<<<<<< HEAD
 from users.models.job import UserJobs, Job
 from users.models.user import User
 from users.models.user import UserRequest
-=======
-from rest_framework import serializers
-import pprint
->>>>>>> a4bfb65f52030e6dd394d4df202366c84449aba3
 
 
 class UserCrudSerializer(serializers.ModelSerializer):
@@ -21,25 +15,18 @@ class UserCrudSerializer(serializers.ModelSerializer):
     date = serializers.DateField(required=False, write_only=True)
     user_request_id = serializers.IntegerField(required=False, write_only=True)
     email = serializers.EmailField(required=False, allow_null=True, allow_blank=True)
-<<<<<<< HEAD
     photo = serializers.ImageField(required=False, allow_null=True)
     password = serializers.CharField(required=False)
-=======
     analysis_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
     packet_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
->>>>>>> a4bfb65f52030e6dd394d4df202366c84449aba3
 
     class Meta:
         model = User
         fields = [
             'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
-<<<<<<< HEAD
             'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis',
             'user_request_id', 'photo'
-=======
-            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date',
-            'user_request_id', 'analysis_list', 'packet_list'
->>>>>>> a4bfb65f52030e6dd394d4df202366c84449aba3
+            , 'analysis_list', 'packet_list'
         ]
 
     def create(self, validated_data):
@@ -49,9 +36,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         return self._save_user(instance, validated_data)
 
     def _save_user(self, instance, validated_data):
-<<<<<<< HEAD
         user_request = None
-=======
 
         name = validated_data.pop('name', None)
         surname = validated_data.pop('surname', None)
@@ -66,25 +51,20 @@ class UserCrudSerializer(serializers.ModelSerializer):
         passport_series = validated_data.pop('passport_series', None)
         passport_number = validated_data.pop('passport_number', None)
 
->>>>>>> a4bfb65f52030e6dd394d4df202366c84449aba3
         user_request_id = validated_data.pop('user_request_id', None)
         doctor = validated_data.pop('doctor_id', None)
         from_date = validated_data.pop('from_date', None)
         to_date = validated_data.pop('to_date', None)
         date = validated_data.pop('date', None)
 
-        # Job "patient" is retrieved
         job = Job.objects.filter(name="patient").first()
         password = validated_data.pop('password', None)
 
-        # Creating a new user instance if it's not updating an existing one
         if instance is None:
-<<<<<<< HEAD
             instance = User.objects.create(**validated_data)
             if password is not None:
                 instance.set_password(password)
                 instance.save()
-=======
             instance = User.objects.create(
                 name=name,
                 surname=surname,
@@ -98,9 +78,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
                 email=email,
                 passport_series=passport_series,
                 passport_number=passport_number)
-            user_request = None
-            # Create a UserJob instance for the "patient" job
->>>>>>> a4bfb65f52030e6dd394d4df202366c84449aba3
             UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
@@ -110,7 +87,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
             if user_request_id:
                 user_request = UserRequest.objects.filter(id=user_request_id, patient=instance).first()
 
-        # Handle doctor-related fields
         if doctor and from_date and to_date and date:
             if user_request:
                 user_request.doctor = doctor
@@ -127,21 +103,16 @@ class UserCrudSerializer(serializers.ModelSerializer):
                     date=date
                 )
 
-        # If there are associated analyses (packet_list or analysis_list)
         if user_request:
-            # Remove previous user analysis records linked to the user and request
             UserAnalysis.objects.filter(user=instance, request=user_request).delete()
 
-            # Create new user analysis records based on analysis_list and packet_list
             analysis_list = validated_data.pop('analysis_list', [])
             packet_list = validated_data.pop('packet_list', [])
 
-            # Create multiple UserAnalysis records for analysis_list
             user_analysis_instances = [
                 UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=False)
                 for analysis in analysis_list
             ]
-            # Create multiple UserAnalysis records for packet_list
             user_analysis_instances += [
                 UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=True)
                 for analysis in packet_list

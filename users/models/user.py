@@ -41,6 +41,7 @@ class User(AbstractUser):
         age = today.year - self.birth_date.year - (
                 (today.month, today.day) < (self.birth_date.month, self.birth_date.day))
         return age
+
     def __str__(self):
         return f"{self.name} {self.surname}"
 
