@@ -16,15 +16,20 @@ class PaymentSerializer(ModelSerializer):
 
     def create(self, validated_data):
         user = validated_data['user']
+        payment_type = validated_data['payment_type']
+        branch = validated_data['branch']
+
         user_jobs = UserJobs.objects.get(user=user)
+        analysis_list = validated_data.pop('analysis_list')
         payment_sum = 0
-        user_analysis = UserAnalysis.objects.filter(user=user, paid=False).all()
-        payment = Payment.objects.create(**validated_data)
+        user_analysis = UserAnalysis.objects.filter(user=user, analysis__in=analysis_list).all()
+        payment = Payment.objects.create(user=user, payment_type=payment_type, branch=branch)
         for analysis in user_analysis:
             payment_sum += analysis.analysis.price
             analysis.paid = True
             analysis.payment = payment
             analysis.save()
+
         user_jobs.paid = True
         user_jobs.save()
         payment.amount = payment_sum
