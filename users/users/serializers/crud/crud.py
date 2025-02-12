@@ -48,7 +48,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         username = validated_data.pop('username', None)
         email = validated_data.pop('email', None)
         passport_series = validated_data.pop('passport_series', None)
-        passport_number = validated_data.pop('passport_number', None)
+        passport_number = "12345678"
 
         user_request_id = validated_data.pop('user_request_id', None)
         doctor = validated_data.pop('doctor_id', None)
