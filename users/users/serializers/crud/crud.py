@@ -48,7 +48,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         username = validated_data.pop('username', None)
         email = validated_data.pop('email', None)
         passport_series = validated_data.pop('passport_series', None)
-        passport_number = "12345678"
+        passport_number = validated_data.pop('passport_number', None)
 
         user_request_id = validated_data.pop('user_request_id', None)
         doctor = validated_data.pop('doctor_id', None)
@@ -57,7 +57,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         date = validated_data.pop('date', None)
 
         job = Job.objects.filter(name="patient").first()
-        password = validated_data.pop('password', None)
+        password = "12345678"
 
         if instance is None:
             instance = User.objects.create(name=name,
@@ -75,19 +75,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
             if password is not None:
                 instance.set_password(password)
                 instance.save()
-            # instance = User.objects.create(
-            #     name=name,
-            #     surname=surname,
-            #     birth_date=birth_date,
-            #     phone_number=phone_number,
-            #     address=address,
-            #     password=password,
-            #     sex=sex,
-            #     branch=branch,
-            #     username=username,
-            #     email=email,
-            #     passport_series=passport_series,
-            #     passport_number=passport_number)
             UserJobs.objects.create(user=instance, job=job)
         else:
             for attr, value in validated_data.items():
