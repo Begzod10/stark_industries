@@ -8,6 +8,7 @@ import datetime
 class StaffSerializerGet(ModelSerializer):
     job = serializers.SerializerMethodField()
     age = serializers.SerializerMethodField()
+    photo = serializers.ImageField(required=False, allow_null=True)
 
     class Meta:
         model = User

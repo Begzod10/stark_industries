@@ -15,7 +15,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
     date = serializers.DateField(required=False, write_only=True)
     user_request_id = serializers.IntegerField(required=False, write_only=True)
     email = serializers.EmailField(required=False, allow_null=True, allow_blank=True)
-    photo = serializers.ImageField(required=False, allow_null=True)
     password = serializers.CharField(required=False)
     analysis_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
     packet_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
@@ -24,7 +23,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch', 'username',
-            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date', 'analysis',
+            'email', 'passport_series', 'passport_number', 'doctor_id', 'from_date', 'to_date', 'date',
             'user_request_id', 'photo'
             , 'analysis_list', 'packet_list'
         ]
