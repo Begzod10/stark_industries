@@ -7,9 +7,8 @@ User = get_user_model()
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
-        data = super().validate(attrs)  # Get the default token response
+        data = super().validate(attrs)
 
-        # Add extra fields to the response
         user = self.user
         data["user_id"] = user.id
         data["name"] = user.name
@@ -25,13 +24,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class CustomTokenRefreshSerializer(TokenRefreshSerializer):
     def validate(self, attrs):
-        data = super().validate(attrs)  # Get the default token response
+        data = super().validate(attrs)
 
-        # Add extra fields
         refresh = RefreshToken(attrs['refresh'])
-        user = User.objects.get(id=refresh.payload['user_id'])  # Fetch user
+        user = User.objects.get(id=refresh.payload['user_id'])
 
-        # Add extra fields
         data["message"] = "Token refreshed successfully"
         data["user_id"] = user.id
         data["name"] = user.name
