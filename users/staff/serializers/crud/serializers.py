@@ -9,7 +9,7 @@ class StaffSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['name', 'surname', 'birth_date', 'phone_number', 'address', 'sex', 'branch',
-                  'username', 'email', 'passport_series', 'passport_number']
+                  'username', 'email', 'passport_series', 'passport_number', 'photo']
 
     def create(self, validated_data):
         user = super().create(validated_data)

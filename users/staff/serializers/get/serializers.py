@@ -13,7 +13,7 @@ class StaffSerializerGet(ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'name', 'surname', 'birth_date', 'phone_number', 'address', 'password', 'sex', 'branch',
-                  'username', 'email', 'passport_series', 'passport_number', 'job', 'age','photo']
+                  'username', 'email', 'passport_series', 'passport_number', 'job', 'age', 'photo']
 
     def get_job(self, obj):
         job = obj.userjobs_set.first()
