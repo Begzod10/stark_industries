@@ -9,4 +9,5 @@ class UserRequestUpdateView(generics.UpdateAPIView):
     serializer_class = UserRequestCreateUpdateSerializer
 
     def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs, partial=True)
+        kwargs['partial'] = True  # partial=True ni to'g'ri qo'shish
+        return super().update(request, *args, **kwargs)
