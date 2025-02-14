@@ -31,7 +31,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         instance.payment_type = payment_type
         instance.save()
-        return Response({"message": "Payment updated successfully.", "payment": PaymentSerializer(instance).data},
+        return Response({"message": "Payment updated successfully.", "payment": PaymentListSerializer(instance).data},
                         status=status.HTTP_200_OK)
 
 
