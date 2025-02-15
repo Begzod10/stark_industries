@@ -8,5 +8,5 @@ urlpatterns = [
     path('create/', UserRequestCreateView.as_view()),
     path('delete/<int:id>', UserRequestDeleteView.as_view()),
     path('delete_request_analysis/', UserRequestAnalysisDeleteView.as_view()),
-    path('update/<int:id>', UserRequestUpdateView.as_view()),
+    path('update/<int:pk>', UserRequestUpdateView.as_view()),
 ]

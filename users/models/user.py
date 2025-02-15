@@ -21,6 +21,7 @@ class User(AbstractUser):
     deleted = models.BooleanField(default=False)
     user_id = models.BigIntegerField(unique=True, editable=False, null=True, default=None)
     photo = models.ImageField(upload_to='photos/users/', null=True, blank=True)
+    reception_time = models.IntegerField(null=False, blank=True, default=0)
 
     def save(self, *args, **kwargs):
         if not self.user_id:
