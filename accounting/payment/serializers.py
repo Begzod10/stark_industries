@@ -10,9 +10,11 @@ from rest_framework import status
 
 
 class PaymentSerializer(ModelSerializer):
+    analysis_list = serializers.ListField(child=serializers.IntegerField(), write_only=True)
+
     class Meta:
         model = Payment
-        fields = ['id', 'payment_type', 'amount', 'date', 'user', 'branch']
+        fields = ['id', 'payment_type', 'amount', 'date', 'user', 'branch', 'deleted', 'analysis_list']
 
     def create(self, validated_data):
         user = validated_data['user']
@@ -22,7 +24,7 @@ class PaymentSerializer(ModelSerializer):
         user_jobs = UserJobs.objects.get(user=user)
         analysis_list = validated_data.pop('analysis_list')
         payment_sum = 0
-        user_analysis = UserAnalysis.objects.filter(user=user, analysis__in=analysis_list).all()
+        user_analysis = UserAnalysis.objects.filter(user=user, id__in=analysis_list).all()
         payment = Payment.objects.create(user=user, payment_type=payment_type, branch=branch)
         for analysis in user_analysis:
             payment_sum += analysis.analysis.price
