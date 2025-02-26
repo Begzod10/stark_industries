@@ -29,3 +29,29 @@ class PaymentAnalysis(models.Model):
     date = models.DateField(null=True, default=datetime.now)
     user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     price = models.BigIntegerField(default=0)
+
+
+class BranchItems(models.Model):
+    # Define size choices as a tuple of (value, label) pairs
+    # bu variantlar ozgartiriladi
+    SIZE_CHOICES = [
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+        ('XL', 'Extra Large'),
+    ]
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=255)
+    code_name = models.CharField(max_length=255)
+    size = models.CharField(max_length=255, choices=SIZE_CHOICES, default='M')  # Added choices
+    count = models.BigIntegerField(default=0)
+
+
+class BranchOverhead(models.Model):
+    branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=255)
+    price = models.BigIntegerField(default=0)
+    payment_type = models.ForeignKey(PaymentType, on_delete=models.SET_NULL, null=True)
+    branch_item = models.ForeignKey(BranchItems, on_delete=models.SET_NULL, null=True)
+    count = models.BigIntegerField(default=0)
+    date = models.DateField(null=True, default=datetime.now)
