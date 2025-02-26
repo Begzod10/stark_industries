@@ -1,11 +1,11 @@
 from django.db import models
 
 from users.models.job import UserJobs
-from analysis.models import Analysis
+
 
 class UserAnalysis(models.Model):
     user = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
-    analysis = models.ManyToManyField(Analysis, related_name='user_analysis')
+    analysis = models.ManyToManyField('analysis.Analysis', related_name='user_analysis')
     request = models.ForeignKey('UserRequest', on_delete=models.SET_NULL, null=True)
     status = models.BooleanField(default=False)
     expected_result = models.TextField(null=True)
@@ -23,7 +23,7 @@ class UserAnalysis(models.Model):
 
 class AnalysisResult(models.Model):
     user_analysis = models.ForeignKey(UserAnalysis, on_delete=models.CASCADE)
-    analysis = models.ForeignKey(Analysis, on_delete=models.SET_NULL, null=True)
+    analysis = models.ForeignKey('analysis.Analysis', on_delete=models.SET_NULL, null=True)
     result = models.TextField(null=True)
     timestamp = models.DateTimeField(null=True, blank=True)
     units = models.CharField(max_length=20, null=True, blank=True)
