@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
+brands = ["SNIBE", "MINDRAY"]
 
 
 class DeviceBrand(models.Model):
@@ -23,3 +26,10 @@ class Device(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_migrate)
+def create_default_jobs(sender, **kwargs):
+    for brand in brands:
+        if DeviceBrand.objects.filter(name=brand).count() == 0:
+            DeviceBrand.objects.create(name=brand)
