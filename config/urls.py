@@ -18,6 +18,7 @@ from users.login.api.views import (
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/', include('config.utilis.swagger')),
+    path('api/', include('overhead.urls')),
     path('api/device/', include('device.device.api.urls')),
     path('api/user_job/', include('users.user_job.api.urls')),
     path('api/user_request/', include('users.user_request.api.urls')),
