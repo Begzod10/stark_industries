@@ -8,7 +8,7 @@ from django.db import DatabaseError
 from django.utils import timezone  # Add this for timezone-aware datetimes
 
 from device.models import Device
-from users.models.analysis import UserAnalysis
+from users.models.analysis import UserAnalysis, AnalysisResult
 
 # ASCII control characters
 ENQ = chr(0x05)
@@ -116,9 +116,13 @@ class MaglumiX3Server:
                             user_analysis = UserAnalysis.objects.get(id=int(current_order['sample_no']))
                             analysis = user_analysis.analysis.filter(code_name=current_order['test_code']).first()
                             if analysis:
-                                user_analysis.timestamp = simple_time or timezone.now()
-                                user_analysis.result = parts[3]
-                                user_analysis.units = parts[4]
+                                AnalysisResult.objects.create(
+                                    user_analysis=user_analysis,
+                                    analysis=analysis,
+                                    result=parts[3],
+                                    timestamp=simple_time or timezone.now(),  # Always timezone-aware
+                                    units=parts[4]
+                                )
                                 user_analysis.status = True
                                 user_analysis.save()
                                 results.append({
