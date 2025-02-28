@@ -8,8 +8,10 @@ SECRET_KEY = 'django-insecure-a+rpbjo-m1tft+0vsrd*a9fdypo%rrh59&+-o(4-3+vao!#ej%
 
 DEBUG = True
 
+
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', '176.221.28.164', '26.12.122.72', 'stark.cybrix.uz', '192.168.1.61']
 ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'accounting',
     'django_filters',
+    'overhead',
 
 ]
 

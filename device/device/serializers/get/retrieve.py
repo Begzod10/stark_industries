@@ -34,4 +34,4 @@ class UsersDeviceAnalysisSerializer(serializers.ModelSerializer):
 class UserAnalysisResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAnalysis
-        fields = ['expected_result', 'result']
+        fields = ['expected_result']
