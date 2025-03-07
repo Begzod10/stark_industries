@@ -8,11 +8,12 @@ class UserAnalysis(models.Model):
     user = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
     analysis = models.ManyToManyField(Analysis, related_name='user_analysis')
     request = models.ForeignKey('UserRequest', on_delete=models.SET_NULL, null=True)
-    status = models.BooleanField(default=False)
+    status = models.IntegerField(null=True)
     expected_result = models.TextField(null=True)
     paid = models.BooleanField(default=False, null=True)
     payment = models.ForeignKey('accounting.Payment', on_delete=models.SET_NULL, null=True)
     by_packet = models.BooleanField(default=False)
+    target = models.CharField(max_length=255, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -28,6 +29,9 @@ class AnalysisResult(models.Model):
     result = models.TextField(null=True)
     timestamp = models.DateTimeField(null=True, blank=True)
     units = models.CharField(max_length=20, null=True, blank=True)
+    symbol = models.CharField(max_length=20, null=True, blank=True)
+    middle = models.CharField(max_length=20, null=True, blank=True)
+    status_text = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         unique_together = ('user_analysis', 'analysis')
