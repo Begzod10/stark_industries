@@ -1,0 +1,6 @@
+from rest_framework import generics
+from branch.locations.serializers.get.list import LocationSerializer
+from branch.models import Location
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
