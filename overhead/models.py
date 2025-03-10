@@ -18,6 +18,9 @@ class Overhead(models.Model):
     branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE, null=True)
     type = models.ForeignKey(OverheadType, on_delete=models.SET_NULL, null=True)
     deleted = models.BooleanField(default=False)
+    storage = models.ForeignKey('accounting.Storage', on_delete=models.SET_NULL, null=True)
+    overall_count = models.IntegerField(null=True)
+    date = models.DateField(null=True)
 
 
 @receiver(post_migrate)
