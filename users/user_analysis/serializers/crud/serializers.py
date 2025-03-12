@@ -20,11 +20,11 @@ class UserAnalysisCreateUpdateSerializer(serializers.ModelSerializer):
         UserJobs.objects.filter(user=user).update(paid=False)
         # Create multiple UserAnalysis records
         user_analysis_instances = [
-            UserAnalysis.objects.create(user=user, analysis_id=analysis, by_packet=False)
+            UserAnalysis.objects.create(user=user, analysis_id=analysis, by_packet=False, branch=user.branch)
             for analysis in analysis_list
         ]
         user_analysis_instances = [
-            UserAnalysis.objects.create(user=user, analysis_id=analysis, by_packet=True)
+            UserAnalysis.objects.create(user=user, analysis_id=analysis, by_packet=True, branch=user.branch)
             for analysis in packet_list
         ]
 

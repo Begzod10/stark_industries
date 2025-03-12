@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from analysis.packet.serializers.get.retrieve import PacketSerializer
 from analysis.models import Analysis
+from analysis.container.serializers.get.list import ContainerListSerializer
+from device.device.serializers.get.retrieve import DeviceRetrieveSerializer
 
 
 class AnalysisGetSerializer(serializers.ModelSerializer):
@@ -22,7 +24,9 @@ class AnalysisGetSerializer(serializers.ModelSerializer):
 
 class AnalysisSerializer(serializers.ModelSerializer):
     packet = PacketSerializer()  # Nest PacketSerializer
+    container = ContainerListSerializer()
+    device = DeviceRetrieveSerializer()
 
     class Meta:
         model = Analysis
-        fields = ['id', 'name', 'packet']
+        fields = ['id', 'name', 'packet', 'price', 'code_name', 'container', 'device']

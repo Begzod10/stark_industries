@@ -11,4 +11,5 @@ urlpatterns = [
     path('analysis/get/', include('analysis.analysis.api.get.urls')),
 
     path('analysis/post/', post_data, name='post_data'),
+    path('laboratory/', include('analysis.laboratory.urls')),
 ]
