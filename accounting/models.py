@@ -55,3 +55,11 @@ class BranchOverhead(models.Model):
     branch_item = models.ForeignKey(BranchItems, on_delete=models.SET_NULL, null=True)
     count = models.BigIntegerField(default=0)
     date = models.DateField(null=True, default=datetime.now)
+
+
+class Storage(models.Model):
+    name = models.CharField()
+    code_name = models.CharField()
+    size = models.CharField()
+    total_number = models.IntegerField()
+
