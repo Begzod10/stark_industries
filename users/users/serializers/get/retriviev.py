@@ -39,21 +39,22 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
         if not user_request:
             return {"packets": [], "individuals": [], "individual_total_price": 0}
 
-        analyses = UserAnalysis.objects.filter(user=obj, request=user_request)
+        user_analysis = UserAnalysis.objects.filter(user=obj, request=user_request).first()
+        if not user_analysis:
+            return {"packets": [], "individuals": [], "individual_total_price": 0}
+
+        analyses = user_analysis.analysis.all()
         packet_list = []
         packet_map = {}
         individual_analyses = []
         individual_total_price = 0
 
         for analysis in analyses:
-            packet = analysis.analysis.packet
+            packet = analysis.packet
             analysis_data = {
-                "name": analysis.analysis.name,
-                "id": analysis.analysis.id,
-                "status": analysis.status,
-                "expected_result": analysis.expected_result,
-                "result": analysis.result,
-                "price": analysis.analysis.price
+                "name": analysis.name,
+                "id": analysis.id,
+                "price": analysis.price
             }
 
             if packet:
@@ -68,10 +69,10 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
                     packet_list.append(packet_info)
 
                 packet_map[packet.id]["analysis"].append(analysis_data)
-                packet_map[packet.id]["price"] += analysis.analysis.price
+                packet_map[packet.id]["price"] += analysis.price
             else:
                 individual_analyses.append(analysis_data)
-                individual_total_price += analysis.analysis.price
+                individual_total_price += analysis.price
 
         return {
             "packets": packet_list,

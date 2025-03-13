@@ -104,20 +104,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
                     date=date
                 )
 
-        # if user_request:
-        #     UserAnalysis.objects.filter(user=instance, request=user_request).delete()
-        #
-        #     analysis_list = validated_data.pop('analysis_list', [])
-        #     packet_list = validated_data.pop('packet_list', [])
-        #
-        #     user_analysis_instances = [
-        #         UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=False)
-        #         for analysis in analysis_list
-        #     ]
-        #     user_analysis_instances += [
-        #         UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=True)
-        #         for analysis in packet_list
-        #     ]
         if user_request:
             user_analysis, created = UserAnalysis.objects.get_or_create(user=instance, request=user_request)
 
@@ -129,7 +115,7 @@ class UserCrudSerializer(serializers.ModelSerializer):
             total_price = Analysis.objects.filter(id__in=analysis_list + packet_list).aggregate(Sum('price'))[
                               'price__sum'] or 0
 
-            user_analysis.payment = total_price
+            user_analysis.price = total_price
             user_analysis.by_packet = bool(packet_list)
             user_analysis.save()
 
