@@ -123,7 +123,7 @@ class MaglumiX3Server:
                                     timestamp=simple_time or timezone.now(),  # Always timezone-aware
                                     units=parts[4]
                                 )
-                                user_analysis.status = True
+                                user_analysis.status = 1
                                 user_analysis.save()
                                 results.append({
                                     'sample_no': current_order['sample_no'],
