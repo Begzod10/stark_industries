@@ -17,32 +17,37 @@ class LaboratoryAnalysisSerializer(ModelSerializer):
         representation['surname'] = instance.user.surname
         representation['start_branch'] = instance.branch.name
         representation['end_branch'] = instance.branch.name
-        representation['status'] = ['black', 'green', 'blue'][instance.status]
+        representation['status'] = ['black', 'green', 'blue'][instance.status - 1]
+        representation['isChecked'] = True if instance.status == 2 else False
         for analysis in instance.analysis.all():
             representation['analysis'] = AnalysisSerializer(analysis).data
 
         return representation
 
-    # def get_analysis_details(self, obj):
-    #     # Get name and surname from the user
-    #
-    #     # Get all related Analysis objects
-    #     user_analyses = UserAnalysis.objects.filter(branch=obj.branch).all()
-    #
-    #     # Create a list of separate dictionaries
-    #     result = []
-    #     for i, user_analysis in enumerate(user_analyses, len(user_analyses)):
-    #         name = user_analysis.user.name if user_analysis.user else None  # Use analysis.user
-    #         surname = user_analysis.user.surname if user_analysis.user else None
-    #         analysis = user_analysis.analysis.all()
-    #         for a in analysis:
-    #             analysis_data = AnalysisSerializer(a).data
-    #             print(user_analysis.user)
-    #
-    #             result.append({
-    #                 "name": name,
-    #                 "surname": surname,
-    #                 "analysis": analysis_data
-    #             })
-    #
-    #     return result
+
+class LaboratoryUpdateSerializer(ModelSerializer):
+    analysis = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = UserAnalysis
+        fields = "__all__"
+
+    def update(self, instance, validated_data):
+        # Toggle status between 2 and 3
+        instance.status = 2 if instance.status == 3 else 3
+        instance.save()
+
+        return instance  # ✅ Return the instance instead of a dictionary
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['name'] = instance.user.name
+        representation['surname'] = instance.user.surname
+        representation['start_branch'] = instance.branch.name
+        representation['end_branch'] = instance.branch.name
+        representation['status'] = ['black', 'green', 'blue'][instance.status - 1]
+        representation['isChecked'] = True if instance.status == 2 else False
+        for analysis in instance.analysis.all():
+            representation['analysis'] = AnalysisSerializer(analysis).data
+
+        return representation

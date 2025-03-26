@@ -10,7 +10,7 @@ class UserAnalysis(models.Model):
     user = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
     analysis = models.ManyToManyField(Analysis, related_name='user_analysis')
     request = models.ForeignKey('UserRequest', on_delete=models.SET_NULL, null=True)
-    status = models.IntegerField(null=True, default=0)
+    status = models.IntegerField(null=True, default=1)
     expected_result = models.TextField(null=True)
     paid = models.BooleanField(default=False, null=True)
     payment = models.ForeignKey('accounting.Payment', on_delete=models.SET_NULL, null=True)
