@@ -18,6 +18,7 @@ class UserAnalysis(models.Model):
     date = models.DateField(default=timezone.now, null=True)
     urgent = models.BooleanField(default=False)
     branch = models.ForeignKey('branch.Branch', on_delete=models.SET_NULL, null=True)
+    price = models.IntegerField(null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

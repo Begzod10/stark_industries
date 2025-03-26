@@ -1,6 +1,9 @@
+from django.db.models import Sum
 from rest_framework import serializers
 from datetime import timedelta
 from datetime import datetime
+
+from analysis.models import Analysis
 from branch.models import Branch
 from users.models.analysis import UserAnalysis
 from users.models.job import UserJobs, Job
@@ -86,8 +89,6 @@ class UserCrudSerializer(serializers.ModelSerializer):
                 user_request = UserRequest.objects.filter(id=user_request_id, patient=instance).first()
 
         if doctor and from_date and to_date and date:
-            # if not to_date:
-            #     to_date = (datetime.combine(date, from_date) + timedelta(minutes=doctor.reception_time)).time()
             if user_request:
                 user_request.doctor = doctor
                 user_request.from_date = from_date
@@ -104,19 +105,18 @@ class UserCrudSerializer(serializers.ModelSerializer):
                 )
 
         if user_request:
-            UserAnalysis.objects.filter(user=instance, request=user_request).delete()
+            user_analysis, created = UserAnalysis.objects.get_or_create(user=instance, request=user_request)
 
             analysis_list = validated_data.pop('analysis_list', [])
             packet_list = validated_data.pop('packet_list', [])
 
-            user_analysis_instances = [
-                UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=False)
-                for analysis in analysis_list
-            ]
-            user_analysis_instances += [
-                UserAnalysis.objects.create(user=instance, analysis_id=analysis, by_packet=True)
-                for analysis in packet_list
-            ]
+            user_analysis.analysis.set(analysis_list + packet_list)
+
+            total_price = Analysis.objects.filter(id__in=analysis_list + packet_list).aggregate(Sum('price'))[
+                              'price__sum'] or 0
+
+            user_analysis.price = total_price
+            user_analysis.by_packet = bool(packet_list)
+            user_analysis.save()
 
         return instance
-
