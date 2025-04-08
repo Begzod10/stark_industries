@@ -4,7 +4,7 @@ from analysis.analysis.serializers.get.get import AnalysisSerializer
 
 
 class UserAnalysisGetSerializer(serializers.ModelSerializer):
-    analysis = AnalysisSerializer()  # Use nested serializer
+    analysis = AnalysisSerializer(many=True)  # Use nested serializer
     price = serializers.SerializerMethodField()  # Add price field.
 
     class Meta:
@@ -12,4 +12,7 @@ class UserAnalysisGetSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'analysis', 'status', 'expected_result', 'paid', 'price', 'by_packet']
 
     def get_price(self, obj):
-        return obj.analysis.price if obj.analysis else 0
+        total_price = 0
+        for analysis in obj.analysis.all():
+            total_price += analysis.price
+        return total_price

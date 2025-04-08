@@ -23,23 +23,27 @@ class UsersAnalysisList(ListAPIView):
         analysis_list = []
 
         for item in serializer.data:
-            analysis = item.get("analysis")
-            if analysis:
+            analyses = item.get("analysis", [])
+            if not analyses:
+                analysis_list.append(item)
+                continue
+
+            added_to_packet = False
+            for analysis in analyses:
                 packet = analysis.get("packet")
-                if isinstance(packet, dict) and item.get("by_packet"):  # Ensure packet is a dictionary
+                if isinstance(packet, dict) and item.get("by_packet"):
                     packet_id = packet.get("id")
                     packet_name = packet.get("name")
-
                     if packet_id:
                         packet_data[packet_id]["packet_id"] = packet_id
                         packet_data[packet_id]["packet_name"] = packet_name
                         packet_data[packet_id]["total"] += item["price"]
                         packet_data[packet_id]["analysis_list"].append(item)
-                else:
-                    analysis_list.append(item)
-            else:
-                analysis_list.append(item)
+                        added_to_packet = True
+                        break  # If you're grouping by first packet, skip the rest
 
+            if not added_to_packet:
+                analysis_list.append(item)
         return Response({
             "info": {
                 "packet": list(packet_data.values()),
